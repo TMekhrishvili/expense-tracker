@@ -20,7 +20,7 @@ const initialValue = [
         quantity: 2,
         unitPrice: 10,
         totalCost: 20,
-        date: '28.01.2021'
+        date: new Date().toLocaleDateString()
     },
     {
         id: 2,
@@ -28,9 +28,16 @@ const initialValue = [
         quantity: 2,
         unitPrice: 10,
         totalCost: 20,
-        date: '28.01.2021'
+        date: new Date().toLocaleDateString()
     }
 ]
+
+const initialInput = {
+    title: '',
+    quantity: 0,
+    unitPrice: 0,
+}
+
 const useStyles = makeStyles((theme) => ({
     paper: {
         position: 'absolute',
@@ -45,6 +52,7 @@ const Main = () => {
 
     const [data, setData] = useState(initialValue)
     const [open, setOpen] = useState(false);
+    const [input, setInput] = useState(initialInput)
 
     const handleOpen = () => {
         setOpen(true);
@@ -63,7 +71,25 @@ const Main = () => {
         const newData = [...data].filter(element => element.id !== id);
         setData(newData);
     }
-
+    const handleChange = e => {
+        setInput({ ...input, [e.target.name]: e.target.value })
+    }
+    const save = () => {
+        const copyData = [...data]
+        const maxID = Math.max.apply(Math, copyData.map(element => element.id))
+        const quantity = parseInt(input.quantity)
+        const unitPrice = parseInt(input.unitPrice)
+        const date = new Date().toLocaleDateString()
+        setData([...data, {
+            id: maxID + 1,
+            title: input.title,
+            quantity: quantity,
+            unitPrice: unitPrice,
+            totalCost: quantity * unitPrice,
+            date: date
+        }])
+        setOpen(false)
+    }
     return (
         <>
             <Modal
@@ -75,12 +101,12 @@ const Main = () => {
                 <div style={modalStyle} className={classes.paper}>
                     <div className="fields">
                         <InputLabel style={{ marginTop: '20px' }}>Title</InputLabel>
-                        <Input type="text" />
-                        <InputLabel  style={{ marginTop: '20px' }}>Quantity</InputLabel>
-                        <Input type="text" />
-                        <InputLabel  style={{ marginTop: '20px' }}>Unit price</InputLabel>
-                        <Input type="text" />
-                        <Button style={{ marginTop: '20px' }} variant="contained" color="primary">
+                        <Input type="text" name="title" onChange={handleChange} />
+                        <InputLabel style={{ marginTop: '20px' }}>Quantity</InputLabel>
+                        <Input type="text" name="quantity" onChange={handleChange} />
+                        <InputLabel style={{ marginTop: '20px' }}>Unit price</InputLabel>
+                        <Input type="text" name="unitPrice" onChange={handleChange} />
+                        <Button style={{ marginTop: '20px' }} onClick={save} variant="contained" color="primary">
                             Save
                         </Button>
                     </div>
