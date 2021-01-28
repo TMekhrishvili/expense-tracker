@@ -46,9 +46,12 @@ const initialValue = [
 
 const Main = () => {
     const [data, setdata] = useState(initialValue)
+
     const removeItem = (id) => {
-        setdata(data.splice(data.findIndex(v => v.id === id), 1))
+        const newData = [...data].filter(element => element.id !== id);
+        setdata(newData);
     }
+
     return (
         <>
             <div style={{ display: 'flex', 'justifyContent': 'flex-end' }}>
