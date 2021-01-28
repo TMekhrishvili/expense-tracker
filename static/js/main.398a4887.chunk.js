@@ -1,0 +1,2 @@
+(this["webpackJsonpexpense-tracker"]=this["webpackJsonpexpense-tracker"]||[]).push([[0],{9:function(e,t,n){"use strict";n.r(t);var r=n(1),c=n(0),s=n.n(c),a=n(3),p=function(){return Object(r.jsx)("div",{className:"App",children:"Expense Tracker"})};n.n(a).a.render(Object(r.jsx)(s.a.StrictMode,{children:Object(r.jsx)(p,{})}),document.getElementById("root"))}},[[9,1,2]]]);
+//# sourceMappingURL=main.398a4887.chunk.js.map
