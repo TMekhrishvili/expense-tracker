@@ -7,7 +7,11 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import DeleteIcon from '@material-ui/icons/Delete';
-
+import Input from '@material-ui/core/Input';
+import { makeStyles } from '@material-ui/core/styles';
+import Modal from '@material-ui/core/Modal';
+import InputLabel from '@material-ui/core/InputLabel';
+import Button from '@material-ui/core/Button';
 
 const initialValue = [
     {
@@ -25,37 +29,66 @@ const initialValue = [
         unitPrice: 10,
         totalCost: 20,
         date: '28.01.2021'
-    },
-    {
-        id: 3,
-        title: 'Expense title3',
-        quantity: 2,
-        unitPrice: 10,
-        totalCost: 20,
-        date: '28.01.2021'
-    },
-    {
-        id: 4,
-        title: 'Expense title4',
-        quantity: 2,
-        unitPrice: 10,
-        totalCost: 20,
-        date: '28.01.2021'
     }
 ]
+const useStyles = makeStyles((theme) => ({
+    paper: {
+        position: 'absolute',
+        width: 400,
+        backgroundColor: theme.palette.background.paper,
+        boxShadow: theme.shadows[5],
+        padding: theme.spacing(2, 4, 3),
+    },
+}));
 
 const Main = () => {
-    const [data, setdata] = useState(initialValue)
+
+    const [data, setData] = useState(initialValue)
+    const [open, setOpen] = useState(false);
+
+    const handleOpen = () => {
+        setOpen(true);
+    };
+    const handleClose = () => {
+        setOpen(false);
+    };
+    const classes = useStyles();
+    const modalStyle = {
+        top: '50%',
+        left: '50%',
+        transform: 'translate(-50%, -50%)',
+    }
 
     const removeItem = (id) => {
         const newData = [...data].filter(element => element.id !== id);
-        setdata(newData);
+        setData(newData);
     }
 
     return (
         <>
+            <Modal
+                open={open}
+                onClose={handleClose}
+                aria-labelledby="simple-modal-title"
+                aria-describedby="simple-modal-description"
+            >
+                <div style={modalStyle} className={classes.paper}>
+                    <div className="fields">
+                        <InputLabel style={{ marginTop: '20px' }}>Title</InputLabel>
+                        <Input type="text" />
+                        <InputLabel  style={{ marginTop: '20px' }}>Quantity</InputLabel>
+                        <Input type="text" />
+                        <InputLabel  style={{ marginTop: '20px' }}>Unit price</InputLabel>
+                        <Input type="text" />
+                        <Button style={{ marginTop: '20px' }} variant="contained" color="primary">
+                            Save
+                        </Button>
+                    </div>
+                </div>
+
+            </Modal>
             <div style={{ display: 'flex', 'justifyContent': 'flex-end' }}>
-                <button className="add-button">+</button>
+                <button onClick={handleOpen} className="add-button">+</button>
             </div>
             <TableContainer component={Paper}>
                 <Table aria-label="simple table">
