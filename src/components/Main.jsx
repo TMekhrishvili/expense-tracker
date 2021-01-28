@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -26,12 +25,30 @@ const initialValue = [
         unitPrice: 10,
         totalCost: 20,
         date: '28.01.2021'
+    },
+    {
+        id: 3,
+        title: 'Expense title3',
+        quantity: 2,
+        unitPrice: 10,
+        totalCost: 20,
+        date: '28.01.2021'
+    },
+    {
+        id: 4,
+        title: 'Expense title4',
+        quantity: 2,
+        unitPrice: 10,
+        totalCost: 20,
+        date: '28.01.2021'
     }
 ]
 
 const Main = () => {
     const [data, setdata] = useState(initialValue)
-
+    const removeItem = (id) => {
+        setdata(data.splice(data.findIndex(v => v.id === id), 1))
+    }
     return (
         <>
             <div style={{ display: 'flex', 'justifyContent': 'flex-end' }}>
@@ -61,7 +78,7 @@ const Main = () => {
                                 <TableCell align="right">{row.unitPrice}</TableCell>
                                 <TableCell align="right">{row.totalCost}</TableCell>
                                 <TableCell align="right">{row.date}</TableCell>
-                                <TableCell align="right"><DeleteIcon style={{ color: 'red', cursor: 'pointer' }} /></TableCell>
+                                <TableCell align="right"><DeleteIcon onClick={() => removeItem(row.id)} style={{ color: 'red', cursor: 'pointer' }} /></TableCell>
                             </TableRow>
                         ))}
                     </TableBody>
