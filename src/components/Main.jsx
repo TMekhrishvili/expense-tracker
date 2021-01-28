@@ -33,36 +33,41 @@ const Main = () => {
     const [data, setdata] = useState(initialValue)
 
     return (
-        <TableContainer component={Paper}>
-            <Table aria-label="simple table">
-                <TableHead>
-                    <TableRow>
-                        <TableCell>N</TableCell>
-                        <TableCell>Title</TableCell>
-                        <TableCell align="right">Quantity</TableCell>
-                        <TableCell align="right">Unit price</TableCell>
-                        <TableCell align="right">Total cost</TableCell>
-                        <TableCell align="right">Date</TableCell>
-                        <TableCell align="right">Delete</TableCell>
-                    </TableRow>
-                </TableHead>
-                <TableBody>
-                    {data.map((row) => (
-                        <TableRow key={row.title}>
-                            <TableCell>{row.id}</TableCell>
-                            <TableCell component="th" scope="row">
-                                {row.title}
-                            </TableCell>
-                            <TableCell align="right">{row.quantity}</TableCell>
-                            <TableCell align="right">{row.unitPrice}</TableCell>
-                            <TableCell align="right">{row.totalCost}</TableCell>
-                            <TableCell align="right">{row.date}</TableCell>
-                            <TableCell align="right"><DeleteIcon style={{ cursor: 'pointer' }} /></TableCell>
+        <>
+            <div style={{ display: 'flex', 'justifyContent': 'flex-end' }}>
+                <button className="add-button">+</button>
+            </div>
+            <TableContainer component={Paper}>
+                <Table aria-label="simple table">
+                    <TableHead>
+                        <TableRow>
+                            <TableCell>N</TableCell>
+                            <TableCell>Title</TableCell>
+                            <TableCell align="right">Quantity</TableCell>
+                            <TableCell align="right">Unit price</TableCell>
+                            <TableCell align="right">Total cost</TableCell>
+                            <TableCell align="right">Date</TableCell>
+                            <TableCell align="right">Delete</TableCell>
                         </TableRow>
-                    ))}
-                </TableBody>
-            </Table>
-        </TableContainer>
+                    </TableHead>
+                    <TableBody>
+                        {data.map((row) => (
+                            <TableRow key={row.title}>
+                                <TableCell>{row.id}</TableCell>
+                                <TableCell component="th" scope="row">
+                                    {row.title}
+                                </TableCell>
+                                <TableCell align="right">{row.quantity}</TableCell>
+                                <TableCell align="right">{row.unitPrice}</TableCell>
+                                <TableCell align="right">{row.totalCost}</TableCell>
+                                <TableCell align="right">{row.date}</TableCell>
+                                <TableCell align="right"><DeleteIcon style={{ color: 'red', cursor: 'pointer' }} /></TableCell>
+                            </TableRow>
+                        ))}
+                    </TableBody>
+                </Table>
+            </TableContainer>
+        </>
     );
 }
 export default Main
