@@ -78,7 +78,6 @@ const Main = () => {
     }
 
     const edit = id => {
-        setOpen(true)
         const newData = [...data].filter(element => element.id === id)[0];
         setInput({
             id: id,
@@ -86,6 +85,7 @@ const Main = () => {
             quantity: newData.quantity,
             unitPrice: newData.unitPrice
         })
+        setOpen(true)
     }
 
     return (
@@ -93,7 +93,7 @@ const Main = () => {
             <ExpenseModal
                 open={open}
                 onclose={handleClose}
-                callback={(value, id) => save(value, id)}
+                callback={value => save(value)}
                 inputValues={input}
             />
             <AddButton callback={handleOpen} />

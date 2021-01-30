@@ -1,19 +1,26 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Input from '@material-ui/core/Input';
 import Modal from '@material-ui/core/Modal';
 import InputLabel from '@material-ui/core/InputLabel';
 import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
 
-const initialValue = {
+const initialInputsValue = {
+    id: 0,
     title: '',
     quantity: 0,
     unitPrice: 0,
 }
 
 const ExpenseModal = ({ open, callback, onclose, inputValues }) => {
+
+    const [input, setInput] = useState(initialInputsValue);
     
-    const [input, setInput] = useState(initialValue);
+    useEffect(() => {
+        if (inputValues.id > 0) {
+            setInput(inputValues);
+        }
+    }, [inputValues])
 
     const useStyles = makeStyles((theme) => ({
         paper: {
@@ -24,7 +31,6 @@ const ExpenseModal = ({ open, callback, onclose, inputValues }) => {
             padding: theme.spacing(2, 4, 3),
         },
     }));
-
     const classes = useStyles();
 
     const modalStyle = {
@@ -34,9 +40,8 @@ const ExpenseModal = ({ open, callback, onclose, inputValues }) => {
     }
 
     const handleChange = e => {
-        setInput({ ...input, [e.target.name]: e.target.value })
+        setInput({ ...input, id: inputValues.id, [e.target.name]: e.target.value })
     }
-
     return (
         <Modal
             open={open}
