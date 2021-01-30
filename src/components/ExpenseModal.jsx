@@ -11,7 +11,8 @@ const initialValue = {
     unitPrice: 0,
 }
 
-const ExpenseModal = ({ open, callback, onclose }) => {
+const ExpenseModal = ({ open, callback, onclose, inputValues }) => {
+    
     const [input, setInput] = useState(initialValue);
 
     const useStyles = makeStyles((theme) => ({
@@ -23,7 +24,9 @@ const ExpenseModal = ({ open, callback, onclose }) => {
             padding: theme.spacing(2, 4, 3),
         },
     }));
+
     const classes = useStyles();
+
     const modalStyle = {
         top: '50%',
         left: '50%',
@@ -44,12 +47,31 @@ const ExpenseModal = ({ open, callback, onclose }) => {
             <div style={modalStyle} className={classes.paper}>
                 <div className="fields">
                     <InputLabel style={{ marginTop: '20px' }}>Title</InputLabel>
-                    <Input type="text" name="title" onChange={handleChange} />
+                    <Input
+                        type="text"
+                        name="title"
+                        onChange={handleChange}
+                        defaultValue={!!inputValues.title ? inputValues.title : ''}
+                    />
                     <InputLabel style={{ marginTop: '20px' }}>Quantity</InputLabel>
-                    <Input type="text" name="quantity" onChange={handleChange} />
+                    <Input
+                        type="text"
+                        name="quantity"
+                        onChange={handleChange}
+                        defaultValue={!!inputValues.quantity ? inputValues.quantity : ''}
+                    />
                     <InputLabel style={{ marginTop: '20px' }}>Unit price</InputLabel>
-                    <Input type="text" name="unitPrice" onChange={handleChange} />
-                    <Button style={{ marginTop: '20px' }} onClick={() => callback(input)} variant="contained" color="primary">
+                    <Input
+                        type="text"
+                        name="unitPrice"
+                        onChange={handleChange}
+                        defaultValue={!!inputValues.unitPrice ? inputValues.unitPrice : ''}
+                    />
+                    <Button
+                        style={{ marginTop: '20px' }}
+                        onClick={() => callback(input)}
+                        variant="contained" color="primary"
+                    >
                         Save
                     </Button>
                 </div>

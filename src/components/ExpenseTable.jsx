@@ -7,9 +7,10 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import DeleteIcon from '@material-ui/icons/Delete';
+import EditIcon from '@material-ui/icons/Edit';
 
 
-const ExpenseTable = ({ data, callback }) => {
+const ExpenseTable = ({ data, removeCallback, editCallback }) => {
     return (
         <TableContainer component={Paper}>
             <Table aria-label="simple table">
@@ -25,8 +26,8 @@ const ExpenseTable = ({ data, callback }) => {
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {data.map((row) => (
-                        <TableRow key={row.title}>
+                    {data.map((row, id) => (
+                        <TableRow key={id}>
                             <TableCell>{row.id}</TableCell>
                             <TableCell component="th" scope="row">
                                 {row.title}
@@ -35,7 +36,16 @@ const ExpenseTable = ({ data, callback }) => {
                             <TableCell align="right">{row.unitPrice}</TableCell>
                             <TableCell align="right">{row.totalCost}</TableCell>
                             <TableCell align="right">{row.date}</TableCell>
-                            <TableCell align="right"><DeleteIcon onClick={() => callback(row.id)} style={{ color: 'red', cursor: 'pointer' }} /></TableCell>
+                            <TableCell align="right">
+                                <EditIcon
+                                    onClick={() => editCallback(row.id)}
+                                    style={{ cursor: 'pointer', marginLeft: '10px' }}
+                                />
+                                <DeleteIcon
+                                    onClick={() => removeCallback(row.id)}
+                                    style={{ color: 'red', cursor: 'pointer' }}
+                                />
+                            </TableCell>
                         </TableRow>
                     ))}
                 </TableBody>
